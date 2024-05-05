@@ -4,9 +4,7 @@ const app = express()
 const morgan = require("morgan")
 const path = require("path")
 const db = require("./models")
-const bodyParser = require("body-parser")
 const fileUpload = require("express-fileupload")
-
 
 
 const PORT = process.env.PORT || 3500;
@@ -17,13 +15,15 @@ const projectRouter = require("./routes/projectRoute")
 
 // middleware
 app.use(morgan("dev"))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.use(fileUpload())
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
+
 app.use("/user", userRouter)
 app.use("/upload", projectRouter)
+
 
 
 app.listen(PORT, async () => {
