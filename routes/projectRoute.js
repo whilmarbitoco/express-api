@@ -1,12 +1,14 @@
 const router = require("express").Router()
-const { index, getAll, destroy, getOne, update } = require("../controllers/projectController")
+const { index, create, destroy, getOne, update } = require("../controllers/projectController")
 const authenticate = require("../middleware/auth")
 
-router.post('/', index)
-router.get('/', getAll)
-router.delete('/:id', authenticate, destroy)
+router.post('/create', authenticate, create) 
 router.get('/:id', getOne)
+router.get('/', index)
 router.put('/:id', authenticate, update)
+router.delete('/:id', authenticate, destroy)
+
+
 
 
 module.exports = router
