@@ -17,6 +17,7 @@ async function create(req, res) {
     const tmp = {
       name: req.body.name,
       description: req.body.description,
+      github: req.body.github,
       image: `uploads/${newName}`,
       technologies: {"tech": req.body.technologies}
     }

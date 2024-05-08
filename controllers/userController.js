@@ -20,7 +20,7 @@ async function login(req, res) {
   
     if (!compare) return res.status(401).json({ auth: false, error: "Username or Password not match" })
   
-    const jwtToken = jwt.sign({ id: user.uuid, username: user.username }, process.env.JWT_SECRET)
+    const jwtToken = jwt.sign({ id: user.uuid, username: user.username }, process.env['JWT_TOKEN'])
   
     res.status(200).json({ auth: true, user: user, token: jwtToken })
   }
@@ -40,6 +40,19 @@ async function login(req, res) {
     res.status(201).json({ message: "Account successfully created" })
   }
   
+
+async function deleteUser(req, res) {
+    const { id } = req.params
+    const user = await db.User.findOne({ where: { id: id } })
+  
+    if (!user) return res.status(404).json({ error: "User Not Found" })
+  
+    await user.destroy()
+  
+    res.status(200).json({ message: "User Deleted" })
+  
+}
+
 
 async function verify(req, res) {
     const token = req.headers.auth
@@ -64,5 +77,6 @@ module.exports = {
     index,
     login,
     signup,
-    verify
+    verify,
+    deleteUser
 }

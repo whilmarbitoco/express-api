@@ -9,7 +9,7 @@ const fileUpload = require("express-fileupload")
 
 const PORT = process.env.PORT || 3500;
 
-// routes
+// import routes
 const userRouter = require("./routes/userRoute")
 const projectRouter = require("./routes/projectRoute")
 
@@ -20,12 +20,17 @@ app.use(express.urlencoded({ extended: false }))
 app.use(fileUpload())
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
+// index route
+app.get("/", (req, res) => {
+    res.send("Whilmar Bitoco")
+})
 
+// routes
 app.use("/user", userRouter)
 app.use("/project", projectRouter)
 
 
-
+// connect to db and start server
 app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`)
     try {

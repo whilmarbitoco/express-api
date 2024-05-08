@@ -15,6 +15,9 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
+      github: {
+        type: Sequelize.STRING
+      },
       description: {
         type: Sequelize.STRING
       },
